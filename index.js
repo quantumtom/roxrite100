@@ -12,3 +12,14 @@ function component() {
 }
 
 document.body.appendChild(component());
+
+var O = {
+    start: function () {
+        console.log('here');
+    },
+    stop: function () {
+
+    }
+};
+
+export default O;
