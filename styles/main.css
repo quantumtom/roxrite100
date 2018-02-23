@@ -43,7 +43,8 @@ h2 {
 
 @media screen and (min-width: 768px) {
 	h2 {
-		font-size: 44px;
+		font-size: 42px;
+	    line-height: 1em;
 	}
 }
 
@@ -68,11 +69,11 @@ tr {
 }
 
 .roxrite-image, .roxrite-image-dark {
-	width: 160px;
+	width: 190px;
 	position: fixed;
 	left: 50%;
 	top: 33px;
-	margin-left: -80px;
+	margin-left: -95px;
 	box-shadow: none;
 }
 
@@ -93,10 +94,10 @@ tr {
 
 .arrow-up {
 	position: fixed;
-	height: 33px;
-	width: 32px;
+	height: 28px;
+	width: 28px;
 	display: inline-block;
-	top: 31px;
+	top: 36px;
 	right: 5%;
    	-webkit-transition: all 0.4s;
 	-moz-transition: all 0.4s;
@@ -104,20 +105,9 @@ tr {
 	transition: all 0.4s;
 }
 
-@media screen and (min-width: 768px) {
-	.arrow-up {
-		height: 36px;
-		width: 34px;
-		bottom: 28px;
-		top: unset;
-		right: 40px;
-		left: unset;
-	}
-}
-
 .arrow-up .arrow-up-v {
-	border-top: 1px solid #ffffff;
-	border-right: 1px solid #ffffff;
+	border-top: 2px solid #ffffff;
+	border-right: 2px solid #ffffff;
 	display: inline-block;
 	width: 50%;
 	height: 50%;
@@ -131,14 +121,34 @@ tr {
 }
 
 .arrow-up .arrow-up-t {
-	width: 1px;
+	width: 2px;
 	display: inline-block;
 	position: absolute;
 	background-color: #ffffff;
-	left: 17px;
+	left: 16px;
 	top: -3px;
 	height: 82%;
 	top: 2px;
+}
+
+@media screen and (min-width: 768px) {
+	.arrow-up {
+		height: 36px;
+		width: 34px;
+		bottom: 28px;
+		top: unset;
+		right: 40px;
+		left: unset;
+	}
+
+	.arrow-up .arrow-up-v {
+		top: 4px;
+		left: 10px;
+	}
+
+	.arrow-up .arrow-up-t {
+		left: 18px;
+	}
 }
 
 /*iframe {
@@ -196,7 +206,7 @@ tr {
 
 #btn-previous span, #btn-previous-mobile span  {
 	border: solid black;
-	border-width: 0 1px 1px 0;
+	border-width: 0 2px 2px 0;
 	display: inline-block;
 	padding: 8px;
 	-webkit-transform: rotate(135deg);
@@ -207,7 +217,7 @@ tr {
 
 #btn-next span, #btn-next-mobile span  {
 	border: solid black;
-	border-width: 0 1px 1px 0;
+	border-width: 0 2px 2px 0;
 	display: inline-block;
 	padding: 8px;
 	-webkit-transform: rotate(-45deg);
@@ -218,18 +228,24 @@ tr {
 
 #btn-previous-mobile span, #btn-next-mobile span  {
 	padding: 7px;
-	border-width: 0 1px 1px 0;
+	border-width: 0 2px 2px 0;
 }
 
 /* About close button START */
 .btn-about-close, #btn-about-mobile, .btn-overlay-close-desktop, .btn-overlay-close, .btn-overlay-close-mobile  {
-	width: 35px;
+	width: 30px;
 	height: 27px;
 	position: fixed;
 	left: 40px;
 	top: 35px;
 	cursor: pointer;
 	z-index: 5;
+}
+
+@media screen and (min-width: 768px) {
+	.btn-about-close, #btn-about-mobile, .btn-overlay-close-desktop, .btn-overlay-close, .btn-overlay-close-mobile  {
+		width: 35px;
+	}
 }
 
 .btn-about-close {
@@ -245,12 +261,12 @@ tr {
 }
 
 #info-circle {
-    width: 31px;
-    height: 31px;
+    width: 22px;
+    height: 22px;
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
     border-radius: 50px;
-    border: 1px solid white;
+    border: 2px solid white;
     display: inline-block;
     color: white;
     font-weight: bold;
@@ -260,30 +276,41 @@ tr {
 
 #info-circle:before {
 	content: " ";
-	width: 1.5px;
-	height: 1.5px;
+	width: 2px;
+	height: 2px;
 	background-color: white;
 	display: inline-block;
 	position: absolute;
-	top: 8px;
-	left: 16px;
+	top: 6px;
+	left: 12px;
 }
 
 #info-circle:after {
 	content: " ";
-	width: 1.5px;
-	height: 11px;
+	width: 2px;
+	height: 9px;
 	background-color: white;
 	display: inline-block;
 	position: absolute;
-	top: 13px;
-	left: 16px;
+	top: 11px;
+	left: 12px;
 }
 
 @media screen and (min-width: 768px) {
 	#info-circle {
 		width: 31px;
 		height: 31px;
+	}
+
+	#info-circle:before {
+		top: 8px;
+		left: 16px;
+	}
+
+	#info-circle:after {
+		height: 13px;
+		top: 13px;
+		left: 16px;
 	}
 }
 
@@ -314,7 +341,7 @@ tr {
 #btn-about {
 	color: #fff;
 	left: 5%;
-	top: 31px;
+	top: 36px;
 /*	width: 33px;
 	height: 33px;*/
 	position: fixed;
@@ -333,7 +360,7 @@ tr {
 
 @media screen and (min-width: 768px) {
 	#btn-about {
-		top: 51px;
+		top: 45px;
 		left: 40px;
 		font-size: 14px;
 /*		width: 32px;
@@ -357,7 +384,7 @@ tr {
 	z-index: 10;
 	display: inline-block;
 	top: 6px;
-	left: 0px;
+	left: -4px;
 }
 
 @media screen and (min-width: 768px) {
@@ -397,7 +424,7 @@ tr {
 #btn-about span, .btn-about-close span, #btn-about-mobile span, .btn-overlay-close-desktop span, .btn-overlay-close span, .btn-overlay-close-mobile span {
   display: block;
   position: absolute;
-  height: 1px;
+  height: 2px;
   width: 100%;
   background-color: #ffffff;
   opacity: 1;
@@ -864,10 +891,10 @@ img {
 	background-color: #ffffff;
 	height: 0;
 	width: 100%;
-	-webkit-transition: all 500ms cubic-bezier(0.77,0.1,0.61,0.61);
-	-moz-transition: all 500ms cubic-bezier(0.77,0.1,0.61,0.61);
-	-o-transition: all 500ms cubic-bezier(0.77,0.1,0.61,0.61);
-	transition: all 500ms cubic-bezier(0.77,0.1,0.61,0.61);
+	-webkit-transition: all 500ms cubic-bezier(.63,.01,.4,1); /* cubic-bezier(0.77,0.1,0.61,0.61); */
+	-moz-transition: all 500ms cubic-bezier(.63,.01,.4,1); /* cubic-bezier(0.77,0.1,0.61,0.61); */
+	-o-transition: all 500ms cubic-bezier(.63,.01,.4,1); /* cubic-bezier(0.77,0.1,0.61,0.61); */
+	transition: all 500ms cubic-bezier(.63,.01,.4,1); /* cubic-bezier(0.77,0.1,0.61,0.61); */
 	overflow: hidden;
 	position: fixed;
 	opacity: 1;
@@ -984,10 +1011,10 @@ img {
 	-moz-transition: all 0.4s;
 	-o-transition: all 0.4s;
 	transition: all 0.4s;
-	-webkit-transform: translate(0, -80px);
+/*	-webkit-transform: translate(0, -80px);
 	-moz-transform: translate(0, -80px);
 	-o-transform: translate(0, -80px);
-	transform: translate(0, -80px);
+	transform: translate(0, -80px);*/
 }
 
 .about-animation-0,
@@ -998,10 +1025,10 @@ img {
 .about-animation-5,
 .about-animation-6,
 .about-animation-7 {
-	-webkit-transform: translate(0);
+/*	-webkit-transform: translate(0);
 	-moz-transform: translate(0);
 	-o-transform: translate(0);
-	transform: translate(0);
+	transform: translate(0);*/
 	opacity: 1;
 }
 
@@ -1013,45 +1040,45 @@ img {
 }
 
 .about-animation-1 {
-	transition-delay: 0.2s;
-	-webkit-transition-delay: 0.2s;
-	-moz-transition-delay: 0.2s;
-	-o-transition-delay: 0.2s;
+	transition-delay: 0.14s;
+	-webkit-transition-delay: 0.14s;
+	-moz-transition-delay: 0.14s;
+	-o-transition-delay: 0.14s;
 }
 
 .about-animation-2, .about-animation-7 {
+	transition-delay: 0.18s;
+	-webkit-transition-delay: 0.18s;
+	-moz-transition-delay: 0.18s;
+	-o-transition-delay: 0.18s;
+}
+
+.about-animation-3 {
+	transition-delay: 0.22s;
+	-webkit-transition-delay: 0.22s;
+	-moz-transition-delay: 0.22s;
+	-o-transition-delay: 0.22s;
+}
+
+.about-animation-4 {
+	transition-delay: 0.26s;
+	-webkit-transition-delay: 0.26s;
+	-moz-transition-delay: 0.26s;
+	-o-transition-delay: 0.26s;
+}
+
+.about-animation-5 {
 	transition-delay: 0.3s;
 	-webkit-transition-delay: 0.3s;
 	-moz-transition-delay: 0.3s;
 	-o-transition-delay: 0.3s;
 }
 
-.about-animation-3 {
-	transition-delay: 0.4s;
-	-webkit-transition-delay: 0.4s;
-	-moz-transition-delay: 0.4s;
-	-o-transition-delay: 0.4s;
-}
-
-.about-animation-4 {
-	transition-delay: 0.5s;
-	-webkit-transition-delay: 0.5s;
-	-moz-transition-delay: 0.5s;
-	-o-transition-delay: 0.5s;
-}
-
-.about-animation-5 {
-	transition-delay: 0.6s;
-	-webkit-transition-delay: 0.6s;
-	-moz-transition-delay: 0.6s;
-	-o-transition-delay: 0.6s;
-}
-
 .about-animation-6 {
-	transition-delay: 0.7s;
-	-webkit-transition-delay: 0.7s;
-	-moz-transition-delay: 0.7s;
-	-o-transition-delay: 0.7s;
+	transition-delay: 0.34s;
+	-webkit-transition-delay: 0.34s;
+	-moz-transition-delay: 0.34s;
+	-o-transition-delay: 0.34s;
 }
 
 .overlay-about-right {
@@ -1113,16 +1140,16 @@ img {
 }
 
 .after-bar {
-	background-color: #000000;
+	background-color: rgb(191, 191, 191);
     position: relative;
 	width: 100%;
 	height: 115px;
     right: 0;
     top: 0;
-	-webkit-transition: 0.2s all cubic-bezier(0.6,0.11,0.42,0.88);
-	-moz-transition: 0.2s all cubic-bezier(0.6,0.11,0.42,0.88);
-	-o-transition: 0.2s all cubic-bezier(0.6,0.11,0.42,0.88);
-	transition: 0.2s all cubic-bezier(0.6,0.11,0.42,0.88);
+	-webkit-transition: 0.4s all cubic-bezier(0.6,0.11,0.42,0.88);
+	-moz-transition: 0.4s all cubic-bezier(0.6,0.11,0.42,0.88);
+	-o-transition: 0.4s all cubic-bezier(0.6,0.11,0.42,0.88);
+	transition: 0.4s all cubic-bezier(0.6,0.11,0.42,0.88);
 	scroll-behavior: unset;
 	transition-delay: 0.4s;
 	-webkit-transition-delay: 0.4s;
@@ -1144,10 +1171,10 @@ img {
     	height: 100%;
     	position: absolute;
     	z-index: 2;
-		-webkit-transition: 0.4s all cubic-bezier(0.6,0.11,0.42,0.88);
-		-moz-transition: 0.4s all cubic-bezier(0.6,0.11,0.42,0.88);
-		-o-transition: 0.4s all cubic-bezier(0.6,0.11,0.42,0.88);
-		transition: 0.4s all cubic-bezier(0.6,0.11,0.42,0.88);
+		-webkit-transition: 0.4s all cubic-bezier(.63,.01,.4,1);
+		-moz-transition: 0.4s all cubic-bezier(.63,.01,.4,1);
+		-o-transition: 0.4s all cubic-bezier(.63,.01,.4,1);
+		transition: 0.4s all cubic-bezier(.63,.01,.4,1);
 		transition-delay: 0.4s;
 		-webkit-transition-delay: 0.4s;
 		-moz-transition-delay: 0.4s;
@@ -1428,9 +1455,9 @@ img {
 
 .divider {
 	width: 100px;
-    height: 2px;
+    height: 1px;
     background-color: #000;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
     display: inline-block;
 }
 
@@ -1448,13 +1475,13 @@ img {
 
 .social-artwork {
 	list-style: none;
-	padding: 24px 0 0 0;
+	padding: 0;
 }
 
 @media screen and ( min-width: 768px) {
 	.social-artwork {
 		width: 100%;
-		padding: 0;
+		/*padding: 0;*/
 		float: right;
 	}
 }
@@ -1475,7 +1502,7 @@ img {
 	}
 }
 
-.artist-info h4 {
+.artist-name {
 	margin: 0;
 	font-size: 12px;
 	margin-right: 5px;
@@ -1483,10 +1510,8 @@ img {
 	display: inline-block;
 }
 
-@media screen and ( min-width: 768px) {
-	.artist-info h4 {
-		margin-left: 40px;
-	}
+.artist-name {
+	margin-left: 40px;
 }
 
 #artwork-artist {
@@ -1517,20 +1542,20 @@ img {
 	margin-bottom: 30px;
 }
 
-@media screen and ( min-width: 768px) {
+#artwork-artist {
+	float: left;
+}
+
+#artwork-original-post {
+	float: left;
+	margin-bottom: 0;
+}
+
+/*@media screen and ( min-width: 768px) {
 	.artist-info h4 {
 		float: left;
 	}
-
-	#artwork-artist {
-		float: left;
-	}
-
-	#artwork-original-post {
-		float: left;
-		margin-bottom: 0;
-	}
-}
+}*/
 
 .social-artwork li.social-links{
 	/*float: right;*/
@@ -1699,10 +1724,10 @@ img {
 	-o-transition: all 500ms ease-in-out;
 	transition: all 500ms ease-in-out;
 	opacity: 0;
-    -webkit-transform: scale(0) translate(0%, -100%);
-    -moz-transform: scale(0) translate(0%, -100%);
-    -o-transform: scale(0) translate(0%, -100%);
-	transform: scale(0) translate(0%, -100%);
+    -webkit-transform: scale(1) translate(0%, 0%);
+    -moz-transform: scale(1) translate(0%, 0%);
+    -o-transform: scale(1) translate(0%, 0%);
+	transform: scale(1) translate(0%, 0%);
 }
 
 .b-lazy.b-loaded {

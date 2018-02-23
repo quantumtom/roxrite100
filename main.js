@@ -81,13 +81,16 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 	// var endPoint = "https://gist.githubusercontent.com/VedadM/c9dea86a3dd331f63456fd65a13f86a4/raw/b803c11f93e320f09d281fa863d3d25f70dd09a9/file.json";
 	var endPoint = "file.json";
 
+	var assetPath = "";
+	// var assetPath = "https://addons.redbull.com/us/phasetwo/";
+
 	var jsonFile;
 
 	var counterRow = 0;
 
 	var openingByHover = 0;
 
-	var scrollSpeeds = [5,3,5,3];
+	var scrollSpeeds = [8,10,8,10];
 
 	//For Swipping:
 	var touchstartX = 0,
@@ -238,7 +241,7 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 			var img = document.createElement("img");
 				img.className = "b-lazy animate js-hover-image";
 				img.src = emptyPixel;
-				img.dataset.src = jsonFile[i].src;
+				img.dataset.src = assetPath + jsonFile[i].src;
 
 			img.addEventListener( "load", function() {
 				el.appendChild(img);
@@ -315,7 +318,7 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 			var img = document.createElement("img");
 				img.className = "b-lazy animate js-hover-image";
 				img.src = emptyPixel;
-				img.dataset.src = jsonFile[i].src;
+				img.dataset.src = assetPath + jsonFile[i].src;
 
 			img.addEventListener( "load", function() {
 				el.appendChild(img);
@@ -429,8 +432,6 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 			
 		}
 
-		// console.log(e.target);
-
 		if (!isNaN(window.location.hash) && (e.target.nodeName == "IMG" || e.target.nodeName == "SPAN")) {
 			updateHash();
 		}
@@ -479,14 +480,14 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 
 			if (elms.overlayControls.getElementsByTagName('SPAN')[i].className == 'js-span-border') {
 				elms.overlayControls.getElementsByTagName('SPAN')[i].style.border = 'solid ' + color;
-				elms.overlayControls.getElementsByTagName('SPAN')[i].style.borderWidth = '0 1px 1px 0';
+				elms.overlayControls.getElementsByTagName('SPAN')[i].style.borderWidth = '0 2px 2px 0';
 			}
 		}
 
 		for (var i = 0; i < elms.overlayControlsMobile.getElementsByTagName('SPAN').length; i++) {
 			if (elms.overlayControlsMobile.getElementsByTagName('SPAN')[i].className == 'js-span-border') {
 				elms.overlayControlsMobile.getElementsByTagName('SPAN')[i].style.border = 'solid ' + color;
-				elms.overlayControlsMobile.getElementsByTagName('SPAN')[i].style.borderWidth = '0 1px 1px 0';
+				elms.overlayControlsMobile.getElementsByTagName('SPAN')[i].style.borderWidth = '0 2px 2px 0';
 			}
 		}
 	}
@@ -512,6 +513,7 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 
 		elms.artContent.classList.add('slide-content-left');
 		elms.afterBar.classList.add('after-bar-full');
+		elms.afterBar.style.backgroundColor = "rgb(191, 191, 191)";
 		elms.overlayInsideTop.classList.remove('overlay-inside-top-padder');
 		elms.wrapper.classList.add('opacity-zero');
 
@@ -663,6 +665,8 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 			if (!isMobile()) {
 				currentImage = parseInt(e.target.parentNode.getAttribute('data-id'));
 
+				elms.artContent.classList.remove('slide-content-left');
+
 				if (e.target.nodeName == "IMG" || e.target.nodeName == "SPAN" ) {
 					// document.querySelectorAll('.grid-item').forEach(function(el) {
 					// 	el.classList.add('grid-hide');
@@ -681,9 +685,9 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 
 					e.target.parentNode.classList.add('grid-current-item');
 
-					setTimeout(function() {
+					// setTimeout(function() {
 						overlayOpen(e);
-					}, 500);
+					// }, 500);
 				}				
 			} else {
 				openingByHover = 1;
@@ -775,9 +779,9 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 
 		}, false);
 
-		elms.linkHome.addEventListener('click', function(e) {
-			overlayClose(e);
-		}, false);
+		// elms.linkHome.addEventListener('click', function(e) {
+		// 	overlayClose(e);
+		// }, false);
 		
 		// elms.grid.addEventListener("mouseover", overlayMove, false);
 		// elms.grid.addEventListener("mousemove", overlayMove, false);
@@ -810,7 +814,6 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 		}, false);
 
 		elms.overlay.addEventListener(transitionEvent, function(e) {
-			
 			if (e.propertyName == 'opacity' && this.classList.contains('info-overlay-open') && !elms.afterBar.classList.contains('after-bar-full')) {
 				elms.body.classList.add('no-scroll');
 				elms.afterBar.classList.remove('after-bar-full');
@@ -863,6 +866,7 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 				elms.afterBar.classList.remove("after-bar-full"); /* Side Scroll added */
 				elms.overlayMedia.classList.remove('overlay-media-hidden'); /* Side Scroll added */
 				elms.overlayInsideTop.classList.remove('overlay-inside-top-padder'); /* Side Scroll added */
+				elms.afterBar.style.backgroundColor = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
 				// changeImage(currentImage);
 			}
 
@@ -981,7 +985,7 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 				elms.about.classList.add('overlay-open');
 
 				displayArtworkInfo(currentImage, document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant"));
-				changeImage(currentImage, "rgb(0,0,0)");
+				changeImage(currentImage, "rgb(191, 191, 191)");
 
 				setTimeout(function() {
 					var color = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
@@ -1005,7 +1009,9 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 		for (var i = 0; i < arr.length; i++) {
 			var img = new Image();
 			img.onload = poop(arr[i]);
-			img.src = arr[i];
+			img.src = assetPath + arr[i];
+
+			// console.log(img);
 
 			// document.getElementById('hidden').appendChild(img);
 		}
@@ -1062,9 +1068,15 @@ if(ColorThief.prototype.getColor=function(a,b){var c=this.getPalette(a,5,b),d=c[
 			}
 		}
 
-		window.onfocus = function() {
-			blazy();
-		}
+		// if (isMobile()) {
+		// 	window.onfocus = function() {
+		// 		location.reload();
+		// 	}
+		// } else {
+			window.onfocus = function() {
+				blazy();
+			}
+		// }
 	}
 	
 	init();
