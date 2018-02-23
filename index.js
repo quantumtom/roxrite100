@@ -2,23 +2,21 @@ import './styles/main.css';
 import './styles/fonts/Druk-Wide-Bold.otf';
 import './styles/fonts/Graphik-Regular.otf';
 import Markup from './raw.html';
+import './main.js';
 
-function component() {
-    let element = document.createElement('div');
+let O = {
+    start: function (options) {
+        console.log('===================== START =====================');
+        var el = options.el;
 
-    element.innerHTML = Markup;
+        el.innerHTML = Markup;
 
-    return element;
-}
-
-document.body.appendChild(component());
-
-var O = {
-    start: function () {
-        console.log('here');
-    },
-    stop: function () {
-
+        return Promise.resolve({
+            stop: function () {
+                console.log('===================== STOP =====================');
+                return Promise.resolve();
+            }
+        });
     }
 };
 
