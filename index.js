@@ -5,14 +5,14 @@ import Markup from './raw.html';
 
 let O = {
     start: function (options) {
-        console.log('===================== START =====================');
+        console.log('===================== INDEX START =====================');
         var el = options.el;
 
         el.innerHTML = Markup;
 
         return Promise.resolve({
             stop: function () {
-                console.log('===================== STOP =====================');
+                console.log('===================== MAIN STOP =====================');
                 return Promise.resolve();
             }
         });
