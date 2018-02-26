@@ -589,7 +589,7 @@ tr {
 	color: #fff;
 	width: 80px;
 	display: block;
-	padding: none;
+	padding: 0;
 	text-align: center;
 	cursor: pointer;
 	font-family: 'Acme', sans-serif;
