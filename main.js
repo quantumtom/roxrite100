@@ -564,14 +564,11 @@ import articles from './file.json';
             elms.videoHolder[0].style.display = "none";
 
             var img = document.createElement("img");
-            img.src = vals.src;
+            img.src = assetPath + vals.src;
 
-            img.onload = function () {
-                // elms.loader.style.display = 'none';
-                elms.loader.style.visibility = 'hidden';
-                console.log('Adding ' + img.src);
-                elms.imageHolder.appendChild(img);
-            };
+            elms.imageHolder.appendChild(img);
+            // elms.overlayMedia.classList.remove('overlay-media-hidden');
+            document.getElementsByClassName('overlay-media')[0].classList.remove('overlay-media-hidden');
         } else {
             elms.imageHolder.style.display = "none";
             elms.videoHolder[0].style.display = "block";
