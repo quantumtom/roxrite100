@@ -62,8 +62,7 @@ tr {
 	position: fixed;
     width: 100%;
     height: 90px;
-    top: 0;
-    background-color: #000;
+    top: 60px;
     z-index: 5;
     border-bottom: 1px solid #fff;
 }
@@ -72,7 +71,7 @@ tr {
 	width: 190px;
 	position: fixed;
 	left: 50%;
-	top: 33px;
+	top: 65px;
 	margin-left: -95px;
 	box-shadow: none;
 }
@@ -97,7 +96,7 @@ tr {
 	height: 28px;
 	width: 28px;
 	display: inline-block;
-	top: 36px;
+	bottom: 60px;
 	right: 5%;
    	-webkit-transition: all 0.4s;
 	-moz-transition: all 0.4s;
