@@ -72,14 +72,14 @@ import articles from './file.json';
         instagramArtistShare: document.getElementById('ig-social'),
         twitterArtistShare: document.getElementById('tw-social'),
         afterBar: document.querySelector(".after-bar")
-    }
+    };
 
     var overlayPosition = {
         w: 0,
         h: 0,
         left: 0,
         top: 0
-    }
+    };
 
     gridSize = (isMobile()) ? 2 : 5;
     // gridLayout = (isMobile()) ? "grid-item-0" : "grid-item-2";
@@ -569,7 +569,8 @@ import articles from './file.json';
             img.onload = function () {
                 // elms.loader.style.display = 'none';
                 elms.loader.style.visibility = 'hidden';
-                document.getElementById("image-holder").appendChild(img);
+                console.log('Adding ' + img.src);
+                elms.imageHolder.appendChild(img);
             };
         } else {
             elms.imageHolder.style.display = "none";
