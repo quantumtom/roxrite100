@@ -14,7 +14,7 @@ import articles from './file.json';
     var emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
     var endPoint = "file.json";
 
-    var assetPath = "https://addons.redbull.com/us/phasetwo/";
+    var assetPath = "https://addons.redbull.com/us/phasetwo/dist/images/artwork-opt/";
     var vals;
 
     var jsonFile;
@@ -548,8 +548,8 @@ import articles from './file.json';
         elms.afterBar.style.backgroundColor = color;
         // elms.afterBar.style.boxShadow = "0px 4px 5px 0px " + color;
 
-        elms.instagramArtistShare.href = vals.social.ig;
-        elms.twitterArtistShare.href = vals.social.tw;
+        // elms.instagramArtistShare.href = vals.social.ig;
+        // elms.twitterArtistShare.href = vals.social.tw;
     }
 
     function changeImage(id) {
@@ -559,6 +559,8 @@ import articles from './file.json';
 
         while (elms.videoHolder[0].firstChild) elms.videoHolder[0].removeChild(elms.videoHolder[0].firstChild);
 
+        console.log('vals.type is \'' + vals.type + '\'');
+
         if (vals.type == "image") {
             elms.imageHolder.style.display = "block";
             elms.videoHolder[0].style.display = "none";
@@ -566,6 +568,7 @@ import articles from './file.json';
             var img = document.createElement("img");
             img.src = assetPath + vals.src;
 
+            console.log('Adding image: ' + img.src);
             elms.imageHolder.appendChild(img);
             // elms.overlayMedia.classList.remove('overlay-media-hidden');
             document.getElementsByClassName('overlay-media')[0].classList.remove('overlay-media-hidden');
@@ -946,10 +949,6 @@ import articles from './file.json';
             elms.overlay.classList.remove("info-overlay-open");
             elms.body.classList.remove("overflow");
         }
-    }
-
-    function poop(i) {
-        console.log(i);
     }
 
     function preLoad(arr) {
