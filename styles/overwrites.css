@@ -1,0 +1,31 @@
+#info-circle, .arrow-up {
+    box-sizing: unset;
+}
+
+#header {
+    top: 50px;
+    background-color: #000;
+}
+
+@media screen and (min-width: 768px) {
+    #header {
+        background-color: unset;
+    }
+}
+
+.roxrite-image {
+    top: 83px;
+}
+
+#btn-about, .arrow-up {
+    top: 86px;
+}
+
+.overlay-inside-about-content {
+    overflow: hidden;
+}
+
+.artwork-title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
