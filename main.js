@@ -14,8 +14,7 @@ import jsonFile from './file.json';
     var emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
     var endPoint = "file.json";
 
-    var assetPath = "https://addons.redbull.com/us/phasetwo/dist/images/artwork-opt/";
-    var vals;
+    var assetPath = "https://addons.redbull.com/us/phasetwo/dist/";
 
     var counterRow = 0;
 
@@ -531,7 +530,7 @@ import jsonFile from './file.json';
     }
 
     function displayArtworkInfo(id, color) {
-        vals = jsonFile[id];
+        var vals = jsonFile[id];
 
         // elms.loader.style.display = 'block';
         elms.loader.style.visibility = 'hidden';
@@ -553,6 +552,8 @@ import jsonFile from './file.json';
     }
 
     function changeImage(id) {
+        var vals = jsonFile[id];
+
         while (elms.imageHolder.lastChild && elms.imageHolder.lastChild.nodeName == "IMG") {
             elms.imageHolder.removeChild(elms.imageHolder.lastChild);
         }
