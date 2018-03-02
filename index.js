@@ -1,7 +1,8 @@
-import './styles/main.css';
+import Markup from './raw.html';
 import './styles/fonts/Druk-Wide-Bold.otf';
 import './styles/fonts/Graphik-Regular.otf';
-import Markup from './raw.html';
+import './styles/main.css';
+import './styles/overwrites.css';
 
 let O = {
     start: function (options) {
