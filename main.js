@@ -1,6 +1,6 @@
 import Blazy from './scripts/blazy.js';
 import ColorThief from './scripts/color-thief.js';
-import articles from './file.json';
+import jsonFile from './file.json';
 
 // main.js Start HERE:
 (function () {
@@ -16,8 +16,6 @@ import articles from './file.json';
 
     var assetPath = "https://addons.redbull.com/us/phasetwo/dist/images/artwork-opt/";
     var vals;
-
-    var jsonFile;
 
     var counterRow = 0;
 
@@ -538,6 +536,8 @@ import articles from './file.json';
         // elms.loader.style.display = 'block';
         elms.loader.style.visibility = 'hidden';
 
+        console.dir(vals);
+        console.log('vals.id is ' + vals.id, 'id is ' + id);
         elms.artworkId.innerHTML = '#' + (parseInt(vals.id) + 1);
         elms.artworkYear.innerHTML = vals.year;
         elms.artworkTitle.innerHTML = vals.name;
@@ -957,8 +957,6 @@ import articles from './file.json';
             // img.onload = poop(arr[i]);
             img.src = assetPath + arr[i];
 
-            // console.log(img);
-
             // document.getElementById('hidden').appendChild(img);
         }
 
@@ -968,9 +966,6 @@ import articles from './file.json';
     function init() {
 
         loadJSON(function (response) {
-            // Parse JSON string into object
-            jsonFile = articles;
-
             totalElements = jsonFile.length;
 
             // console.log(jsonFile);
