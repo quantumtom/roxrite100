@@ -529,10 +529,12 @@ import ColorThief from './scripts/color-thief.js';
             elms.videoHolder[0].style.display = "none";
 
             let img = document.createElement("img");
-            img.src = vals.src;
+            img.src = assetPath + vals.src;
 
-            img.onload=function(){
-                // elms.loader.style.display = 'none';
+            console.log('Binding to img.onload.');
+
+            img.onload = function() {
+                console.log('img.onload called');
                 elms.loader.style.visibility = 'hidden';
                 document.getElementById("image-holder").appendChild(img);
             };
