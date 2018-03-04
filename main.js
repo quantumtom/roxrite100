@@ -531,10 +531,7 @@ import ColorThief from './scripts/color-thief.js';
             let img = document.createElement("img");
             img.src = assetPath + vals.src;
 
-            console.log('Binding to img.onload.');
-
             img.onload = function() {
-                console.log('img.onload called');
                 elms.loader.style.visibility = 'hidden';
                 document.getElementById("image-holder").appendChild(img);
             };
