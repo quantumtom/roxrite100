@@ -53,7 +53,6 @@ import ColorThief from './scripts/color-thief.js';
         about: document.getElementById('btn-about'),
         aboutMobile: document.getElementById('btn-about-mobile'),
         arrowUp: document.querySelector('.arrow-up'),
-        // aboutDesktop: document.getElementById('btn-about-desktop'),
         aboutCloseDesktop: document.querySelector('.btn-overlay-close-desktop'),
         aboutCloseMobile: document.querySelector('.btn-overlay-close-mobile'),
         aboutClose: document.querySelector('.btn-about-close'),
@@ -668,9 +667,7 @@ import ColorThief from './scripts/color-thief.js';
         }
 
 
-        // elms.overlayClose.addEventListener('click', overlayClose, false);
         elms.aboutCloseDesktop.addEventListener('click', function(e) {
-            // overlayClose(e);
             elms.afterBar.classList.add('after-bar-full');
             elms.overlayInsideTop.classList.add('overlay-inside-top-padder');
             elms.overlayMedia.classList.add('overlay-media-hidden');
@@ -678,7 +675,6 @@ import ColorThief from './scripts/color-thief.js';
         }, false);
 
         elms.aboutCloseMobile.addEventListener('click', function(e) {
-            // overlayClose(e);
             elms.afterBar.classList.add('after-bar-full');
             elms.overlayInsideTop.classList.add('overlay-inside-top-padder');
             elms.overlayMedia.classList.add('overlay-media-hidden');
@@ -875,17 +871,12 @@ import ColorThief from './scripts/color-thief.js';
         }
     }
 
-    function testing(i) {
-        // console.log(i);
-    }
-
     function preLoad(arr) {
-        for (let i = 0; i < arr.length; i++) {
-            let img = new Image();
-            img.onload = testing(arr[i]);
-            img.src = assetPath + arr[i];
+        let img;
 
-            // document.getElementById('hidden').appendChild(img);
+        for (let i = 0; i < arr.length; i++) {
+            img = new Image();
+            img.src = assetPath + arr[i];
         }
 
         return true;
