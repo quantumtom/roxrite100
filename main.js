@@ -118,19 +118,6 @@ import ColorThief from './scripts/color-thief.js';
         }
     }
 
-    function loadJSON(callback) {
-
-        let xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-        xobj.open('GET', endPoint, true);
-        xobj.onreadystatechange = function () {
-            if (xobj.readyState == 4 && xobj.status == "200") {
-                callback(xobj.responseText);
-            }
-        };
-        xobj.send(null);
-    }
-
     function addDesktopGrid() {
         // Inital Row
 
@@ -883,48 +870,44 @@ import ColorThief from './scripts/color-thief.js';
 
     function init() {
 
-        loadJSON(function(response) {
-            // Parse JSON string into object
-            // jsonFile = JSON.parse(response);
-
-            jsonFile.sort(function (a, b) {
-                return parseInt(a.id) - parseInt(b.id);
-            });
-
-            totalElements = jsonFile.length;
-
-            jsonFile.forEach(function(el) {
-                allImages.push(el.src);
-            });
-
-            let ready = preLoad(allImages);
-
-            if(ready) {
-
-                document.querySelector(".content").style.display = "block";
-                if (isMobile() || window.innerWidth < 500) {
-                    addMobileGrid();
-                } else {
-                    addDesktopGrid();
-                }
-
-                blazy();
-
-                setTimeout(function() {
-                    checkHash();
-                },500);
-
-                setTimeout(function(){
-                    (window.scrollY > 0) ? elms.arrowUp.classList.remove('opacity-null') : elms.arrowUp.classList.add('opacity-null');
-                }, 10);
-
-
-            }
+        jsonFile.sort(function (a, b) {
+            return parseInt(a.id) - parseInt(b.id);
         });
+
+        totalElements = jsonFile.length;
+
+        jsonFile.forEach(function(el) {
+            allImages.push(el.src);
+        });
+
+        let ready = preLoad(allImages);
+
+        if (ready) {
+            document.querySelector('#cs-wrapper').style.display = "block";
+            // document.querySelector(".content").style.display = "block";
+
+            if (isMobile() || window.innerWidth < 500) {
+                addMobileGrid();
+            } else {
+                addDesktopGrid();
+            }
+
+            blazy();
+
+            setTimeout(function() {
+                checkHash();
+            },500);
+
+            setTimeout(function(){
+                (window.scrollY > 0) ? elms.arrowUp.classList.remove('opacity-null') : elms.arrowUp.classList.add('opacity-null');
+            }, 10);
+
+
+        }
 
         bindEvents();
         if (window.history && window.history.pushState) {
-            window.onpopstate = function(e) {
+            window.onpopstate = function() {
                 checkHash();
             }
         }
