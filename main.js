@@ -4,17 +4,15 @@ import ColorThief from './scripts/color-thief.js';
 
 // main.js Start HERE:
 (function () {
-    var msnry;
-    var gridSize, gridLayout, currentSizer; //gridParentWidth
-    var buttonCounter = 2;
-    var currentLayout;
-    var currentParentWidth;
-    var allImages = [];
-    var currentImage, totalElements;
-    var emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
-    var endPoint = "file.json";
-
-    var assetPath = "https://addons.redbull.com/us/phasetwo/dist/";
+    let msnry;
+    let gridSize, gridLayout, currentSizer; //gridParentWidth
+    let buttonCounter = 2;
+    let currentLayout;
+    let currentParentWidth;
+    let allImages = [];
+    let currentImage, totalElements;
+    let emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+    let endPoint = "file.json";
 
     let assetPath = "https://addons.redbull.com/us/phasetwo/dist/";
 
