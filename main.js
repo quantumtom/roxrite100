@@ -379,7 +379,7 @@ import ColorThief from './scripts/color-thief.js';
         }
     }
 
-    function overlayClose(e) {
+    function overlayClose(e, backButton = true) {
         e.preventDefault();
 
         elms.body.classList.remove('no-scroll');
@@ -412,7 +412,7 @@ import ColorThief from './scripts/color-thief.js';
             elms.overlay.classList.remove("info-overlay-open-index");
         },1000)
 
-        if (window.history && window.history.pushState) {
+        if (window.history && window.history.pushState && backButton) {
             history.pushState("", document.title, window.location.pathname);
         }
     }
@@ -906,9 +906,19 @@ import ColorThief from './scripts/color-thief.js';
         }
 
         bindEvents();
+
         if (window.history && window.history.pushState) {
             window.onpopstate = function() {
                 checkHash();
+
+                if (window.location.hash == "") {
+                    overlayClose(e, false);
+
+                    elms.body.classList.remove('no-scroll');
+                    elms.overlayAbout.classList.remove("about-overlay-open");
+                    elms.about.classList.remove("open");
+                    elms.overlayCloseAbout.style.opacity = 1;
+              }
             }
         }
 
