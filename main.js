@@ -13,7 +13,7 @@ import ColorThief from './scripts/color-thief.js';
     let currentImage, totalElements;
     let emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
-    let assetPath = "https://addons.redbull.com/us/phasetwo/dist/";
+    let assetPath = "";
 
     let openingByHover = 0;
 
@@ -609,7 +609,6 @@ import ColorThief from './scripts/color-thief.js';
                 // e.target.previousSibling.lastChild.removeAttribute('style');
 
                 if (e.target.nodeName == "IMG") {
-                    console.dir(e.target.previousSibling);
                     e.target.previousSibling.firstChild.style.display = 'inline-block';
                     e.target.previousSibling.classList.add('artwork-number-hover');
                     e.target.previousSibling.style.backgroundColor = e.target.getAttribute('data-dominant');
@@ -870,17 +869,18 @@ import ColorThief from './scripts/color-thief.js';
 
     function init() {
 
-        jsonFile.sort(function (a, b) {
-            return parseInt(a.id) - parseInt(b.id);
-        });
-
-        totalElements = jsonFile.length;
-
-        jsonFile.forEach(function(el) {
-            allImages.push(el.src);
-        });
-
-        let ready = preLoad(allImages);
+        // jsonFile.sort(function (a, b) {
+        //     return parseInt(a.id) - parseInt(b.id);
+        // });
+        //
+        // totalElements = jsonFile.length;
+        //
+        // jsonFile.forEach(function(el) {
+        //     allImages.push(el.src);
+        // });
+        //
+        // let ready = preLoad(allImages);
+        let ready = true;
 
         if (ready) {
             document.querySelector('#cs-wrapper').style.display = "block";
