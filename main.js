@@ -12,7 +12,6 @@ import ColorThief from './scripts/color-thief.js';
     let allImages = [];
     let currentImage, totalElements;
     let emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
-    let endPoint = "file.json";
 
     let assetPath = "https://addons.redbull.com/us/phasetwo/dist/";
 
@@ -610,6 +609,7 @@ import ColorThief from './scripts/color-thief.js';
                 // e.target.previousSibling.lastChild.removeAttribute('style');
 
                 if (e.target.nodeName == "IMG") {
+                    console.dir(e.target.previousSibling);
                     e.target.previousSibling.firstChild.style.display = 'inline-block';
                     e.target.previousSibling.classList.add('artwork-number-hover');
                     e.target.previousSibling.style.backgroundColor = e.target.getAttribute('data-dominant');
@@ -886,11 +886,11 @@ import ColorThief from './scripts/color-thief.js';
             document.querySelector('#cs-wrapper').style.display = "block";
             // document.querySelector(".content").style.display = "block";
 
-            if (isMobile() || window.innerWidth < 500) {
-                addMobileGrid();
-            } else {
-                addDesktopGrid();
-            }
+            // if (isMobile() || window.innerWidth < 500) {
+            //     addMobileGrid();
+            // } else {
+            //     addDesktopGrid();
+            // }
 
             blazy();
 
@@ -904,8 +904,6 @@ import ColorThief from './scripts/color-thief.js';
 
 
         }
-
-        bindEvents();
 
         if (window.history && window.history.pushState) {
             window.onpopstate = function() {
@@ -928,4 +926,6 @@ import ColorThief from './scripts/color-thief.js';
     }
 
     init();
+
+    bindEvents();
 })();

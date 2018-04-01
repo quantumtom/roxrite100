@@ -521,13 +521,6 @@ tr {
     min-width: 250px;
 }
 
-@media screen and (min-width: 768px) {
-    .grid {
-        width: 90%;
-        margin-top: 100px;
-    }
-}
-
 .grid-hide {
     opacity: 0;
 }
@@ -680,12 +673,27 @@ tr {
 .grid-item-3 {
     min-height: 100px;
     width: 18.9%;
-    margin: 3%;
+    margin: 20px 3% 0 3%;
     float: left;
     -webkit-transition: all 200ms;
     -moz-transition: all 200ms;
     -o-transition: all 200ms;
     transition: all 200ms;
+}
+@media screen and (max-width: 768px) {
+    .grid-item-3 {
+        width: 89%;
+        margin: auto 20px;
+        position: relative;
+    }
+    .grid-item {
+        margin-bottom: 5%;
+    }
+    .grid {
+        margin: 150px auto 0;
+        overflow: visible;
+        width: 90%;
+    }
 }
 
 .grid-item-2 {
