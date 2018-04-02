@@ -5,15 +5,14 @@ import ColorThief from './scripts/color-thief.js';
 // main.js Start HERE:
 (function () {
     let msnry;
-    let gridSize, gridLayout, currentSizer; //gridParentWidth
+    let gridSize, currentSizer;
     let buttonCounter = 2;
     let currentLayout;
     let currentParentWidth;
-    let allImages = [];
     let currentImage, totalElements;
     let emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
-    let assetPath = "";
+    let assetPath = "https://addons.redbull.com/us/phasetwo/dist/";
 
     let openingByHover = 0;
 
@@ -68,32 +67,6 @@ import ColorThief from './scripts/color-thief.js';
         afterBar: document.querySelector(".after-bar")
     };
 
-    let overlayPosition = {
-        w: 0,
-        h: 0,
-        left: 0,
-        top: 0
-    };
-
-    gridSize = (isMobile()) ? 2 : 5;
-    currentSizer = (isMobile()) ? "sizer-0" : "sizer-2";
-
-    // Helpers
-    function debounce(func, wait, immediate) {
-        let timeout;
-        return function() {
-            let context = this, args = arguments;
-            let later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-            let callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
-        };
-    };
-
     function isMobile() {
         return /(iPhone|iPod|android|ios|iPad|windowsphone|tablet)/i.test(navigator.userAgent);
     }
@@ -117,76 +90,6 @@ import ColorThief from './scripts/color-thief.js';
         }
     }
 
-    function addDesktopGrid() {
-        // Inital Row
-
-        for (let i = 0; i < 4; i++) {
-            let el = document.createElement("div");
-            el.className = 'col-' + i + ' grid-item-3' ;
-            el.dataset.scrollspeed = scrollSpeeds[i];
-            elms.grid.appendChild(el);
-        }
-
-        for (let i = 0; i < jsonFile.length; i++) {
-            let colDecider = i % 4;
-
-            let el = document.createElement("div");
-            el.className = 'grid-item';
-            el.dataset.type = jsonFile[i].type;
-            el.dataset.id = i;
-            el.dataset.current = jsonFile[i].id;
-
-            // console.log(jsonFile[i], jsonFile[i].id);
-
-            let artworkNumber = document.createElement("span");
-            artworkNumber.className = "artwork-number";
-
-            let id = jsonFile[i].id;
-            if (id < 10) {
-                id = "0" + id;
-            }
-
-            let hoverSpanNumber = document.createElement("span");
-            hoverSpanNumber.className = "artwork-number-span";
-            hoverSpanNumber.innerHTML = id;
-
-            artworkNumber.appendChild(hoverSpanNumber);
-            el.appendChild(artworkNumber);
-
-            let img = document.createElement("img");
-            img.className = "b-lazy animate js-hover-image";
-            img.src = emptyPixel;
-            img.dataset.src = assetPath + jsonFile[i].gridsrc;
-
-            img.addEventListener( "load", function() {
-                el.appendChild(img);
-
-            }());
-
-            document.querySelector('.col-' + colDecider).appendChild(el);
-        }
-
-        moveIt(document.querySelectorAll('[data-scrollspeed]'));
-    }
-
-    function moveIt(selector){
-        let instances = [];
-
-        let arrayirize = Array.from(selector);
-
-        arrayirize.forEach(function(el){
-            instances.push(new moveItItem(el));
-        });
-
-        window.addEventListener('scroll', function(){
-            let scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-
-            instances.forEach(function(inst){
-                inst.update(scrollTop);
-            });
-        }, {passive: false});
-    }
-
     let moveItItem = function(el){
         this.el = el;
         this.speed = parseInt(this.el.getAttribute('data-scrollspeed'));
@@ -198,66 +101,15 @@ import ColorThief from './scripts/color-thief.js';
         } /* else {
             this.el.style.transform = 'translateY(0px)';
         }*/
-    };
-
-    function addMobileGrid() {
-        // Inital Row
-
-        for (let i = 0; i < jsonFile.length; i++) {
-            let el = document.createElement("div");
-            el.className = 'grid-item-0';
-            el.dataset.type = jsonFile[i].type;
-            el.dataset.id = i;
-            el.dataset.current = jsonFile[i].id;
-
-            let artworkNumber = document.createElement("span");
-            artworkNumber.className = "artwork-number";
-
-            let id = jsonFile[i].id;
-            if (id < 10) {
-                id = "0" + id;
-            }
-
-            let hoverSpanNumber = document.createElement("span");
-            hoverSpanNumber.className = "artwork-number-span";
-            hoverSpanNumber.innerHTML = id;
-
-            artworkNumber.appendChild(hoverSpanNumber);
-            el.appendChild(artworkNumber);
-
-            let img = document.createElement("img");
-            img.className = "b-lazy animate js-hover-image";
-            img.src = emptyPixel;
-            img.dataset.src = assetPath + jsonFile[i].gridsrc;
-
-            img.addEventListener( "load", function() {
-                el.appendChild(img);
-            }());
-
-            elms.grid.appendChild(el);
-        }
-    }
-
-    function resizeGridElement() {
-        currentLayout = document.querySelector(".grid").children[1].classList[0];
-        currentParentWidth = document.querySelectorAll("[class*='grid-width']")[0].classList[2];
-
-        document.querySelectorAll("[class^='grid-item']").forEach(function(el) {
-            el.className = el.className.replace( currentLayout , 'grid-item-' + buttonCounter );
-        });
-
-        document.querySelectorAll("[class^='sizer']")[0].className = 'sizer-' + buttonCounter;
-        document.querySelectorAll("[class*='grid-width']")[0].className = document.querySelectorAll("[class*='grid-width']")[0].className.replace(currentParentWidth,'grid-width-' + buttonCounter);
-
-        msnry.layout();
     }
 
     function blazy() {
         window.bLazy = new Blazy({
             container: '.img-container',
-            success: function(element){
+            success: function (element) {
+                let colorThief;
                 setTimeout(function() {
-                    let colorThief = new ColorThief();
+                    colorThief = new ColorThief();
 
                     element.dataset.dominant = 'rgb(' + colorThief.getColor(element) + ')';
                 },50);
@@ -423,8 +275,8 @@ import ColorThief from './scripts/color-thief.js';
 
         currentImage = id;
 
-        displayArtworkInfo(id,color);
-        changeImage(id, color);
+        displayArtworkInfo(id);
+        changeImage(id);
     }
 
     function nextImage(e) {
@@ -469,8 +321,14 @@ import ColorThief from './scripts/color-thief.js';
         }
     }
 
-    function displayArtworkInfo(id, color) {
+    function displayArtworkInfo(id) {
         let vals = jsonFile[id];
+
+        let color = '#cccccc';
+
+        // if (document.querySelectorAll("[data-id='"+ id +"']")[0].lastChild.hasOwnProperty('dataset')) {
+        //     color = document.querySelectorAll("[data-id='"+ id +"']")[0].lastChild.dataset.dominant;
+        // }
 
         // elms.loader.style.display = 'block';
         elms.loader.style.visibility = 'hidden';
@@ -680,7 +538,7 @@ import ColorThief from './scripts/color-thief.js';
                 this.classList.remove("slide-content-left");
                 // elms.overlayMedia.classList.add('overlay-media-hidden');
                 elms.overlayMedia.classList.remove('overlay-media-hidden');
-                displayArtworkInfo(currentImage, document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant"));
+                displayArtworkInfo(currentImage);
                 changeImage(currentImage);
             }
         }, false);
@@ -703,7 +561,7 @@ import ColorThief from './scripts/color-thief.js';
                     elms.artContent.classList.remove('slide-content-left');
                 }
 
-                elms.afterBar.style.backgroundColor = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
+                // elms.afterBar.style.backgroundColor = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
             }
 
             if (elms.overlay.classList.contains("info-overlay-open") && this.classList.contains('after-bar-full') && !elms.overlay.classList.contains('js-hash-call') && !this.classList.contains('arrow-click')) { /* Side Scroll added  just !this.classList.contains('arrow-click')*/
@@ -716,7 +574,7 @@ import ColorThief from './scripts/color-thief.js';
                 elms.afterBar.classList.remove("after-bar-full"); /* Side Scroll added */
                 // elms.overlayMedia.classList.remove('overlay-media-hidden'); /* Side Scroll added */
                 elms.overlayInsideTop.classList.remove('overlay-inside-top-padder'); /* Side Scroll added */
-                elms.afterBar.style.backgroundColor = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
+                // elms.afterBar.style.backgroundColor = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
                 // changeImage(currentImage);
             }
 
@@ -838,12 +696,12 @@ import ColorThief from './scripts/color-thief.js';
 
                 elms.about.classList.add('overlay-open');
 
-                displayArtworkInfo(currentImage, document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant"));
-                changeImage(currentImage, "rgb(191, 191, 191)");
+                displayArtworkInfo(currentImage);
+                changeImage(currentImage);
 
                 setTimeout(function() {
-                    let color = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
-                    elms.afterBar.style.backgroundColor = color;
+                    // let color = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
+                    // elms.afterBar.style.backgroundColor = color;
                     // elms.afterBar.style.boxShadow = "0px 4px 5px 0px " + color;
                     elms.grid.classList.remove('hide');
                     elms.overlayMedia.classList.remove('overlay-media-hidden');
@@ -869,10 +727,10 @@ import ColorThief from './scripts/color-thief.js';
 
     function init() {
 
-        // jsonFile.sort(function (a, b) {
-        //     return parseInt(a.id) - parseInt(b.id);
-        // });
-        //
+        jsonFile.sort(function (a, b) {
+            return parseInt(a.id) - parseInt(b.id);
+        });
+
         // totalElements = jsonFile.length;
         //
         // jsonFile.forEach(function(el) {
