@@ -4,11 +4,6 @@ import ColorThief from './scripts/color-thief.js';
 
 // main.js Start HERE:
 (function () {
-    let msnry;
-    let gridSize, currentSizer;
-    let buttonCounter = 2;
-    let currentLayout;
-    let currentParentWidth;
     let currentImage, totalElements;
     let emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
@@ -16,22 +11,17 @@ import ColorThief from './scripts/color-thief.js';
 
     let openingByHover = 0;
 
-    let scrollSpeeds = [8,10,8,10];
-
     //For Swipping:
     let touchstartX = 0,
         touchstartY = 0,
         touchendX = 0,
         touchendY = 0;
 
-    // let hashTrue = false;
-
     let elms = {
         body: document.getElementsByTagName("body")[0],
         imageHolder : document.getElementById('image-holder'),
         videoHolder: document.querySelectorAll("#video-holder"),
         grid: document.querySelector('.grid'),
-        // gridItems: document.querySelector('.grid-items'),
         overlay: document.querySelector('.overlay'),
         overlayControls: document.querySelector('.overlay-controls'),
         overlayControlsMobile: document.querySelector('.overlay-controls-mobile'),
@@ -62,8 +52,6 @@ import ColorThief from './scripts/color-thief.js';
         artworkArtist: document.getElementById('artwork-artist'),
         artworkArtistSite: document.getElementById('artwork-artist-site'),
         artworkPost: document.getElementById('artwork-original-post'),
-        // facebookArtistShare: document.getElementById('fb-social'),
-        // twitterArtistShare: document.getElementById('tw-social'),
         afterBar: document.querySelector(".after-bar")
     };
 
@@ -101,7 +89,7 @@ import ColorThief from './scripts/color-thief.js';
         } /* else {
             this.el.style.transform = 'translateY(0px)';
         }*/
-    }
+    };
 
     function blazy() {
         window.bLazy = new Blazy({
@@ -118,7 +106,7 @@ import ColorThief from './scripts/color-thief.js';
     }
 
     function overlayAbout(e) {
-        e.preventDefault();
+        // e.preventDefault();
         overlayClose(e);
 
         elms.body.classList.add('no-scroll');
