@@ -25,7 +25,7 @@ import ColorThief from './scripts/color-thief.js';
         overlay: document.querySelector('.overlay'),
         overlayControls: document.querySelector('.overlay-controls'),
         overlayControlsMobile: document.querySelector('.overlay-controls-mobile'),
-        overlayAbout: document.querySelector('.overlay-about'),
+        aboutOverlay: document.querySelector('.overlay-about'),
         overlayMedia: document.querySelector('.overlay-media'),
         overlayInsideTop: document.querySelector('.overlay-inside-top'),
         loader: document.getElementById('loader'),
@@ -37,7 +37,7 @@ import ColorThief from './scripts/color-thief.js';
         next: document.getElementById('btn-next'),
         previousMobile: document.getElementById('btn-previous-mobile'),
         nextMobile: document.getElementById('btn-next-mobile'),
-        about: document.getElementById('btn-about'),
+        btnOpenAbout: document.getElementById('btn-about'),
         aboutMobile: document.getElementById('btn-about-mobile'),
         arrowUp: document.querySelector('.arrow-up'),
         aboutCloseDesktop: document.querySelector('.btn-overlay-close-desktop'),
@@ -92,25 +92,30 @@ import ColorThief from './scripts/color-thief.js';
         });
     }
 
-    function overlayAbout(e) {
+    function openAboutOverlay(e) {
         // e.preventDefault();
-        overlayClose(e);
+        // overlayClose(e);
 
         elms.body.classList.add('no-scroll');
         elms.overlayCloseAbout.style.opacity = 1;
 
-        for (let i = 0; i < elms.about.children.length; i++) {
-            elms.about.children[i].removeAttribute('style');
+        for (let i = 0; i < elms.btnOpenAbout.children.length; i++) {
+            elms.btnOpenAbout.children[i].removeAttribute('style');
         }
 
         for (let i = 0; i < elms.aboutAnimation.length; i++) {
             elms.aboutAnimation[i].classList.add('about-animation-' + i);
         }
 
-        (elms.about.classList.toggle("open")) ? elms.overlayAbout.classList.add("about-overlay-open") : elms.overlayAbout.classList.remove("about-overlay-open");
+        elms.btnOpenAbout.classList.add("open");
+        elms.aboutOverlay.classList.add("about-overlay-open");
+        elms.overlay.classList.add("info-overlay-open");
+        elms.overlay.classList.add("info-overlay-open-index");
+        elms.afterBar.classList.remove('after-bar-full');
+        elms.overlayInsideTop.classList.remove('overlay-inside-top-padder');
 
         if (window.history && window.history.pushState) {
-            if (elms.about.classList.contains("open")) {
+            if (elms.btnOpenAbout.classList.contains("open")) {
                 history.pushState("", document.title, window.location.pathname + '#about');
             } else {
                 history.pushState("", document.title, window.location.pathname);
@@ -132,7 +137,7 @@ import ColorThief from './scripts/color-thief.js';
             if (isMobile()) {
                 elms.artContent.classList.remove('slide-content-left');
             }
-            elms.about.classList.add('overlay-open');
+            elms.btnOpenAbout.classList.add('overlay-open');
             elms.afterBar.classList.remove('after-bar-full');
             elms.overlayInsideTop.classList.remove('overlay-inside-top-padder');
         }
@@ -225,7 +230,7 @@ import ColorThief from './scripts/color-thief.js';
         elms.overlayInsideTop.classList.remove('overlay-inside-top-padder');
         elms.wrapper.classList.add('opacity-zero');
 
-        elms.about.classList.remove('overlay-open');
+        elms.btnOpenAbout.classList.remove('overlay-open');
         elms.overlayMedia.classList.add('overlay-media-hidden');
 
         document.querySelectorAll('.grid-item').forEach(function(el) {
@@ -383,6 +388,7 @@ import ColorThief from './scripts/color-thief.js';
     function bindEvents() {
         let transitionEvent = whichTransitionEvent();
 
+        // Grid item clicks
         elms.grid.addEventListener("click", function(e) {
             if (isMobile()) {
                 openingByHover = 1;
@@ -391,8 +397,8 @@ import ColorThief from './scripts/color-thief.js';
 
                 if (e.target.nodeName == "IMG") {
                     elms.afterBar.style.backgroundColor = e.target.getAttribute('data-dominant');
-                    e.target.previousSibling.classList.add('artwork-number-hover');
-                    e.target.previousSibling.style.backgroundColor = e.target.getAttribute('data-dominant');
+                    e.target.parentNode.firstElementChild.classList.add('artwork-number-hover');
+                    e.target.parentNode.firstElementChild.style.backgroundColor = e.target.getAttribute('data-dominant');
                 }
 
                 if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number')) {
@@ -408,27 +414,13 @@ import ColorThief from './scripts/color-thief.js';
                 elms.artContent.classList.remove('slide-content-left');
 
                 if (e.target.nodeName == "IMG" || e.target.nodeName == "SPAN") {
-                    if (e.target.nodeName == "IMG") {
-                        elms.afterBar.style.backgroundColor = e.target.getAttribute('data-dominant');
-                    }
-
-                    if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number')) {
-                        elms.afterBar.style.backgroundColor = e.target.parentNode.childNodes[1].getAttribute('data-dominant');
-                    }
-
-                    if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number-span')) {
-                        elms.afterBar.style.backgroundColor = e.target.parentNode.nextSibling.getAttribute('data-dominant');
-                    }
-
-                    e.target.parentNode.classList.add('grid-current-item');
-
                     overlayOpen(e);
                 }
             }
 
         }, false);
 
-        // Desktop
+        // Grid item hovers
         if (!isMobile()) {
             elms.grid.addEventListener("mouseover", function(e) {
                 e.stopPropagation();
@@ -464,15 +456,15 @@ import ColorThief from './scripts/color-thief.js';
         }
 
 
-        elms.aboutCloseDesktop.addEventListener('click', function(e) {
+        elms.aboutCloseDesktop.addEventListener('click', function() {
             elms.afterBar.classList.add('after-bar-full');
             elms.overlayInsideTop.classList.add('overlay-inside-top-padder');
             elms.overlayMedia.classList.add('overlay-media-hidden');
 
         }, false);
 
-        elms.aboutCloseMobile.addEventListener('click', function(e) {
-            elms.afterBar.classList.add('after-bar-full');
+        elms.aboutCloseMobile.addEventListener('click', function() {
+             elms.afterBar.classList.add('after-bar-full');
             elms.overlayInsideTop.classList.add('overlay-inside-top-padder');
             elms.overlayMedia.classList.add('overlay-media-hidden');
 
@@ -484,7 +476,8 @@ import ColorThief from './scripts/color-thief.js';
         elms.nextMobile.addEventListener("click", nextImage, false);
         elms.previousMobile.addEventListener("click", previousImage, false);
 
-        elms.about.addEventListener("click", overlayAbout, false);
+        // Open the "About" overlay
+        elms.btnOpenAbout.addEventListener("click", openAboutOverlay, false);
 
         // On Content
         elms.artContent.addEventListener(transitionEvent, function(e) {
@@ -552,8 +545,8 @@ import ColorThief from './scripts/color-thief.js';
 
         elms.overlayCloseAbout.addEventListener('click', function() {
             elms.body.classList.remove('no-scroll');
-            elms.overlayAbout.classList.remove("about-overlay-open");
-            elms.about.classList.remove("open");
+            elms.aboutOverlay.classList.remove("about-overlay-open");
+            elms.btnOpenAbout.classList.remove("open");
             this.style.opacity = 0;
 
             for (let i = 0; i < elms.aboutAnimation.length; i++) {
@@ -617,8 +610,9 @@ import ColorThief from './scripts/color-thief.js';
 
         // Check for about
         if (!!hash && hash.substring(1) === 'about') {
-            elms.overlayAbout.classList.add("about-overlay-open");
-            elms.about.classList.add("open");
+            elms.aboutOverlay.classList.add("about-overlay-open");
+            // elms.btnOpenAbout is the button that opens the overlay
+            elms.btnOpenAbout.classList.add("open");
 
             elms.body.classList.add('no-scroll');
             elms.overlayCloseAbout.style.opacity = 1;
@@ -648,7 +642,7 @@ import ColorThief from './scripts/color-thief.js';
 
                 currentImage = id;
 
-                elms.about.classList.add('overlay-open');
+                elms.btnOpenAbout.classList.add('overlay-open');
 
                 displayArtworkInfo(currentImage);
                 changeImage(currentImage);
@@ -721,8 +715,8 @@ import ColorThief from './scripts/color-thief.js';
                     overlayClose(e, false);
 
                     elms.body.classList.remove('no-scroll');
-                    elms.overlayAbout.classList.remove("about-overlay-open");
-                    elms.about.classList.remove("open");
+                    elms.aboutOverlay.classList.remove("about-overlay-open");
+                    elms.btnOpenAbout.classList.remove("open");
                     elms.overlayCloseAbout.style.opacity = 1;
               }
             };
