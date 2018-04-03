@@ -5,7 +5,7 @@ import ColorThief from './scripts/color-thief.js';
 // main.js Start HERE:
 (function () {
     let currentImage, totalElements;
-    let emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+    // let emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
     let assetPath = "https://addons.redbull.com/us/phasetwo/dist/";
 
@@ -77,19 +77,6 @@ import ColorThief from './scripts/color-thief.js';
             }
         }
     }
-
-    let moveItItem = function(el){
-        this.el = el;
-        this.speed = parseInt(this.el.getAttribute('data-scrollspeed'));
-    };
-
-    moveItItem.prototype.update = function(scrollTop){
-        if ( scrollTop + window.innerHeight <= document.body.clientHeight + 99) {
-            this.el.style.transform = 'translateY(' +  -(scrollTop / this.speed) + 'px)';
-        } /* else {
-            this.el.style.transform = 'translateY(0px)';
-        }*/
-    };
 
     function blazy() {
         window.bLazy = new Blazy({
@@ -249,7 +236,7 @@ import ColorThief from './scripts/color-thief.js';
         setTimeout(function() {
             elms.overlay.scrollTop = 0;
             elms.overlay.classList.remove("info-overlay-open-index");
-        },1000)
+        },1000);
 
         if (window.history && window.history.pushState && backButton) {
             history.pushState("", document.title, window.location.pathname);
@@ -259,7 +246,6 @@ import ColorThief from './scripts/color-thief.js';
     function getId(el) {
         // Remove old image
         let id = el.parentNode.getAttribute("data-id");
-        let color = el.nextSibling.getAttribute("data-dominant");
 
         currentImage = id;
 
@@ -314,11 +300,6 @@ import ColorThief from './scripts/color-thief.js';
 
         let color = '#cccccc';
 
-        // if (document.querySelectorAll("[data-id='"+ id +"']")[0].lastChild.hasOwnProperty('dataset')) {
-        //     color = document.querySelectorAll("[data-id='"+ id +"']")[0].lastChild.dataset.dominant;
-        // }
-
-        // elms.loader.style.display = 'block';
         elms.loader.style.visibility = 'hidden';
 
         elms.artworkId.innerHTML = '#' + (parseInt(vals.id));
@@ -396,20 +377,38 @@ import ColorThief from './scripts/color-thief.js';
         }
     }
 
+    /**
+     *
+     */
     function bindEvents() {
         let transitionEvent = whichTransitionEvent();
 
         elms.grid.addEventListener("click", function(e) {
-            if (!isMobile()) {
+            if (isMobile()) {
+                openingByHover = 1;
+
+                currentImage = parseInt(e.target.parentNode.getAttribute('data-id'));
+
+                if (e.target.nodeName == "IMG") {
+                    elms.afterBar.style.backgroundColor = e.target.getAttribute('data-dominant');
+                    e.target.previousSibling.classList.add('artwork-number-hover');
+                    e.target.previousSibling.style.backgroundColor = e.target.getAttribute('data-dominant');
+                }
+
+                if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number')) {
+                    e.target.classList.add('artwork-number-hover');
+                }
+
+                if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number-span')) {
+                    e.target.parentNode.classList.add('artwork-number-hover');
+                }
+            } else {
                 currentImage = parseInt(e.target.parentNode.getAttribute('data-id'));
 
                 elms.artContent.classList.remove('slide-content-left');
 
-                if (e.target.nodeName == "IMG" || e.target.nodeName == "SPAN" ) {
-                    // document.querySelectorAll('.grid-item').forEach(function(el) {
-                    //  el.classList.add('grid-hide');
-                    // });
-                    if (e.target.nodeName == "IMG" ) {
+                if (e.target.nodeName == "IMG" || e.target.nodeName == "SPAN") {
+                    if (e.target.nodeName == "IMG") {
                         elms.afterBar.style.backgroundColor = e.target.getAttribute('data-dominant');
                     }
 
@@ -425,70 +424,37 @@ import ColorThief from './scripts/color-thief.js';
 
                     overlayOpen(e);
                 }
-            } else {
-                openingByHover = 1;
-
-                currentImage = parseInt(e.target.parentNode.getAttribute('data-id'));
-
-                if (e.target.nodeName == "IMG" ) {
-                    elms.afterBar.style.backgroundColor = e.target.getAttribute('data-dominant');
-                    e.target.previousSibling.classList.add('artwork-number-hover');
-                    e.target.previousSibling.style.backgroundColor = e.target.getAttribute('data-dominant');
-                }
-
-                if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number')) {
-                    e.target.classList.add('artwork-number-hover');
-                    e.target.style.backgroundColor = e.target.nextSibling.getAttribute('data-dominant');
-                }
-
-                if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number-span')) {
-                    e.target.parentNode.classList.add('artwork-number-hover');
-                    e.target.parentNode.style.backgroundColor = e.target.parentNode.nextSibling.getAttribute('data-dominant');
-                }
             }
 
         }, false);
 
+        // Desktop
         if (!isMobile()) {
             elms.grid.addEventListener("mouseover", function(e) {
                 e.stopPropagation();
-                // e.target.previousSibling.lastChild.removeAttribute('style');
 
                 if (e.target.nodeName == "IMG") {
-                    e.target.previousSibling.firstChild.style.display = 'inline-block';
-                    e.target.previousSibling.classList.add('artwork-number-hover');
-                    e.target.previousSibling.style.backgroundColor = e.target.getAttribute('data-dominant');
+                    e.target.parentNode.firstElementChild.classList.add('artwork-number-hover');
                 }
 
                 if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number')) {
-                    // e.target.style.opacity = 1;
                     e.target.classList.add('artwork-number-hover');
-                    e.target.firstChild.style.opacity = 1;
-                    // e.target.nextSibling.classList.add('hoveroony');
-                    e.target.style.backgroundColor = e.target.nextSibling.getAttribute('data-dominant');
                 }
 
                 if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number-span')) {
-                    e.target.style.opacity = 1;
                     e.target.parentNode.classList.add('artwork-number-hover');
-                    e.target.style.display = 'inline-block';
                 }
             });
 
             elms.grid.addEventListener("mouseout", function(e) {
                 e.stopPropagation();
+
                 if (e.target.nodeName == "IMG" ) {
-                    // e.target.previousSibling.firstChild.style.opacity = 0;
-                    e.target.previousSibling.classList.remove('artwork-number-hover');
-                    // e.target.previousSibling.firstChild.style.display = 'none';
+                    e.target.parentNode.firstElementChild.classList.remove('artwork-number-hover');
                 }
 
                 if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number')) {
-                    e.target.firstChild.style.opacity = 0;
-                    e.target.firstChild.style.display = "none";
                     e.target.classList.remove('artwork-number-hover');
-                    // document.querySelector('.artwork-number-span').style.display = 'none';
-                    // e.target.nextSibling.classList.remove('hoveroony');
                 }
 
                 if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number-span')) {
@@ -617,11 +583,11 @@ import ColorThief from './scripts/color-thief.js';
             elms.grid.addEventListener(transitionEvent, function(e) {
                 if (e.target.nodeName == 'SPAN' && e.target.classList.contains('artwork-number-span') && openingByHover) {
                     setTimeout(function() {
-                        e.target.style.opacity = 0;
+                        // e.target.style.opacity = 0;
                     }, 400);
 
                     setTimeout(function() {
-                        e.target.style.display = 'none';
+                        // e.target.style.display = 'none';
                         e.target.parentNode.parentNode.classList.add('grid-current-item');
                         overlayOpen(e);
                     }, 800);
@@ -688,9 +654,6 @@ import ColorThief from './scripts/color-thief.js';
                 changeImage(currentImage);
 
                 setTimeout(function() {
-                    // let color = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
-                    // elms.afterBar.style.backgroundColor = color;
-                    // elms.afterBar.style.boxShadow = "0px 4px 5px 0px " + color;
                     elms.grid.classList.remove('hide');
                     elms.overlayMedia.classList.remove('overlay-media-hidden');
                 }, 500);
@@ -730,7 +693,6 @@ import ColorThief from './scripts/color-thief.js';
 
         if (ready) {
             document.querySelector('#cs-wrapper').style.display = "block";
-            // document.querySelector(".content").style.display = "block";
 
             // if (isMobile() || window.innerWidth < 500) {
             //     addMobileGrid();
@@ -763,12 +725,12 @@ import ColorThief from './scripts/color-thief.js';
                     elms.about.classList.remove("open");
                     elms.overlayCloseAbout.style.opacity = 1;
               }
-            }
+            };
         }
 
         window.onfocus = function() {
             blazy();
-        }
+        };
     }
 
     init();
