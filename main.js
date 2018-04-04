@@ -93,8 +93,7 @@ import ColorThief from './scripts/color-thief.js';
     }
 
     function openAboutOverlay(e) {
-        // e.preventDefault();
-        // overlayClose(e);
+        overlayClose(e);
 
         elms.body.classList.add('no-scroll');
         elms.overlayCloseAbout.style.opacity = 1;
@@ -107,12 +106,12 @@ import ColorThief from './scripts/color-thief.js';
             elms.aboutAnimation[i].classList.add('about-animation-' + i);
         }
 
-        elms.btnOpenAbout.classList.add("open");
-        elms.aboutOverlay.classList.add("about-overlay-open");
-        elms.overlay.classList.add("info-overlay-open");
-        elms.overlay.classList.add("info-overlay-open-index");
-        elms.afterBar.classList.remove('after-bar-full');
-        elms.overlayInsideTop.classList.remove('overlay-inside-top-padder');
+        // This is the open/close indicator.
+        if (elms.btnOpenAbout.classList.toggle("open")) {
+            elms.aboutOverlay.classList.add("about-overlay-open");
+        } else {
+            elms.aboutOverlay.classList.remove("about-overlay-open");
+        }
 
         if (window.history && window.history.pushState) {
             if (elms.btnOpenAbout.classList.contains("open")) {
@@ -123,8 +122,9 @@ import ColorThief from './scripts/color-thief.js';
         }
     }
 
-    function overlayOpen(e) {
-        // e.preventDefault();
+    function openInfoOverlay(e) {
+        let targetNodeName = e.target.nodeName;
+        let validTrigger = (targetNodeName == "SPAN" || targetNodeName == "IMG");
 
         if (isMobile()) {
             openingByHover = 0;
@@ -133,7 +133,7 @@ import ColorThief from './scripts/color-thief.js';
             });
         }
 
-        if (e.target.nodeName == "IMG" || e.target.nodeName == "SPAN") {
+        if (validTrigger) {
             if (isMobile()) {
                 elms.artContent.classList.remove('slide-content-left');
             }
@@ -142,7 +142,7 @@ import ColorThief from './scripts/color-thief.js';
             elms.overlayInsideTop.classList.remove('overlay-inside-top-padder');
         }
 
-        if (e.target && e.target.nodeName == "IMG" || e.target.nodeName == "SPAN") {
+        if (validTrigger) {
             elms.overlay.removeAttribute("style");
             elms.overlay.classList.add("info-overlay-open");
             elms.overlay.classList.add("info-overlay-open-index");
@@ -157,7 +157,7 @@ import ColorThief from './scripts/color-thief.js';
 
         }
 
-        if (!isNaN(window.location.hash) && (e.target.nodeName == "IMG" || e.target.nodeName == "SPAN")) {
+        if (!isNaN(window.location.hash) && validTrigger) {
             updateHash();
         }
 
@@ -168,7 +168,6 @@ import ColorThief from './scripts/color-thief.js';
             }
         }, 1000);
 
-        // elms.overlayMedia.classList.remove('overlay-media-hidden');
         windowWidthCheck();
     }
 
@@ -414,7 +413,7 @@ import ColorThief from './scripts/color-thief.js';
                 elms.artContent.classList.remove('slide-content-left');
 
                 if (e.target.nodeName == "IMG" || e.target.nodeName == "SPAN") {
-                    overlayOpen(e);
+                    openInfoOverlay(e);
                 }
             }
 
@@ -456,15 +455,15 @@ import ColorThief from './scripts/color-thief.js';
         }
 
 
-        elms.aboutCloseDesktop.addEventListener('click', function() {
+        elms.aboutCloseDesktop.addEventListener('click', function(e) {
             elms.afterBar.classList.add('after-bar-full');
             elms.overlayInsideTop.classList.add('overlay-inside-top-padder');
             elms.overlayMedia.classList.add('overlay-media-hidden');
 
         }, false);
 
-        elms.aboutCloseMobile.addEventListener('click', function() {
-             elms.afterBar.classList.add('after-bar-full');
+        elms.aboutCloseMobile.addEventListener('click', function(e) {
+            elms.afterBar.classList.add('after-bar-full');
             elms.overlayInsideTop.classList.add('overlay-inside-top-padder');
             elms.overlayMedia.classList.add('overlay-media-hidden');
 
@@ -582,7 +581,7 @@ import ColorThief from './scripts/color-thief.js';
                     setTimeout(function() {
                         // e.target.style.display = 'none';
                         e.target.parentNode.parentNode.classList.add('grid-current-item');
-                        overlayOpen(e);
+                        openInfoOverlay(e);
                     }, 800);
                 }
             });
