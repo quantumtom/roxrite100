@@ -11,12 +11,6 @@ import ColorThief from './scripts/color-thief.js';
 
     let openingByHover = 0;
 
-    //For Swipping:
-    let touchstartX = 0,
-        touchstartY = 0,
-        touchendX = 0,
-        touchendY = 0;
-
     let elms = {
         body: document.getElementsByTagName("body")[0],
         imageHolder : document.getElementById('image-holder'),
@@ -555,17 +549,6 @@ import ColorThief from './scripts/color-thief.js';
             history.pushState("", document.title, window.location.pathname);
         }, false);
 
-        elms.overlayMedia.addEventListener('touchstart', function(e) {
-            touchstartX = e.changedTouches[0].screenX;
-            touchstartY = e.changedTouches[0].screenY;
-        }, false);
-
-        elms.overlayMedia.addEventListener('touchend', function(e) {
-            touchendX = e.changedTouches[0].screenX;
-            touchendY = e.changedTouches[0].screenY;
-            touchGesture(e);
-        }, false);
-
         elms.arrowUp.addEventListener('click', function(e) {
             e.preventDefault();
             window.scroll({top: 0, behavior: 'smooth' });
@@ -590,18 +573,6 @@ import ColorThief from './scripts/color-thief.js';
         window.addEventListener('scroll', function(e) {
             (window.scrollY > 0) ? elms.arrowUp.classList.remove('opacity-null') : elms.arrowUp.classList.add('opacity-null');
         });
-    }
-
-    function touchGesture(e) {
-        let threshold = touchendX - touchstartX;
-
-        if (threshold > 60) {
-            previousImage(e);
-        }
-
-        if (threshold < -60) {
-            nextImage(e);
-        }
     }
 
     function checkHash() {
