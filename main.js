@@ -1,6 +1,5 @@
 import jsonFile from './file.json';
 import Blazy from './scripts/blazy.js';
-import ColorThief from './scripts/color-thief.js';
 
 // main.js Start HERE:
 (function () {
@@ -74,14 +73,15 @@ import ColorThief from './scripts/color-thief.js';
 
     function blazy() {
         window.bLazy = new Blazy({
-            container: '.img-container',
-            success: function (element) {
-                let colorThief;
-                setTimeout(function() {
-                    colorThief = new ColorThief();
-
-                    element.dataset.dominant = 'rgb(' + colorThief.getColor(element) + ')';
-                },50);
+            error: function(ele, msg){
+                if (msg === 'missing'){
+                    console.log('data-src is missing');
+                    // data-src is missing
+                }
+                else if (msg === 'invalid') {
+                    console.log('data-src is invalid');
+                    // data-src is invalid
+                }
             }
         });
     }
@@ -641,11 +641,12 @@ import ColorThief from './scripts/color-thief.js';
     }
 
     function init() {
-
-        jsonFile.sort(function (a, b) {
-            return parseInt(a.id) - parseInt(b.id);
-        });
-
+        // let allImages = [];
+        //
+        // jsonFile.sort(function (a, b) {
+        //     return parseInt(a.id) - parseInt(b.id);
+        // });
+        //
         // totalElements = jsonFile.length;
         //
         // jsonFile.forEach(function(el) {
@@ -653,6 +654,7 @@ import ColorThief from './scripts/color-thief.js';
         // });
         //
         // let ready = preLoad(allImages);
+
         let ready = true;
 
         if (ready) {
@@ -668,7 +670,7 @@ import ColorThief from './scripts/color-thief.js';
 
             setTimeout(function() {
                 checkHash();
-            },500);
+            }, 500);
 
             setTimeout(function(){
                 (window.scrollY > 0) ? elms.arrowUp.classList.remove('opacity-null') : elms.arrowUp.classList.add('opacity-null');
