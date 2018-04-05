@@ -296,8 +296,6 @@ import Blazy from './scripts/blazy.js';
     function displayArtworkInfo(id) {
         let vals = jsonFile[id];
 
-        let color = '#cccccc';
-
         elms.loader.style.visibility = 'hidden';
 
         elms.artworkId.innerHTML = '#' + (parseInt(vals.id));
@@ -314,14 +312,6 @@ import Blazy from './scripts/blazy.js';
         elms.artworkArtistSite.href = vals.artisturl;
         (vals.artisturl == "") ? elms.artworkArtistSite.style.display = "none" : elms.artworkArtistSite.style.display = "block";
 
-        elms.afterBar.style.backgroundColor = color;
-        // elms.afterBar.style.boxShadow = "0px 4px 5px 0px " + color;
-
-        // elms.instagramArtistShare.href = vals.social.ig;
-        // elms.twitterArtistShare.href = vals.social.tw;
-
-        // (vals.social.ig == "") ? elms.instagramArtistShare.parentNode.style.display = "none" : elms.instagramArtistShare.parentNode.style.display = "inline-block";
-        // (vals.social.tw == "") ? elms.twitterArtistShare.parentNode.style.display = "none" : elms.twitterArtistShare.parentNode.style.display = "inline-block";
     }
 
     function changeImage(id) {
@@ -629,32 +619,7 @@ import Blazy from './scripts/blazy.js';
         }
     }
 
-    function preLoad(arr) {
-        let img;
-
-        for (let i = 0; i < arr.length; i++) {
-            img = new Image();
-            img.src = assetPath + arr[i];
-        }
-
-        return true;
-    }
-
     function init() {
-        // let allImages = [];
-        //
-        // jsonFile.sort(function (a, b) {
-        //     return parseInt(a.id) - parseInt(b.id);
-        // });
-        //
-        // totalElements = jsonFile.length;
-        //
-        // jsonFile.forEach(function(el) {
-        //     allImages.push(el.src);
-        // });
-        //
-        // let ready = preLoad(allImages);
-
         let ready = true;
 
         if (ready) {
