@@ -1,10 +1,9 @@
 import jsonFile from './file.json';
-import Blazy from './scripts/blazy.js';
+import Blazy from 'blazy';
 
 // main.js Start HERE:
 (function () {
     let currentImage, totalElements;
-    // let emptyPixel = "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
     let assetPath = "https://addons.redbull.com/us/phasetwo/dist/";
 
@@ -75,11 +74,11 @@ import Blazy from './scripts/blazy.js';
         window.bLazy = new Blazy({
             error: function(ele, msg){
                 if (msg === 'missing'){
-                    console.log('data-src is missing');
+                    console.error('Blazy data-src is missing');
                     // data-src is missing
                 }
                 else if (msg === 'invalid') {
-                    console.log('data-src is invalid');
+                    console.error('Blazy data-src is invalid');
                     // data-src is invalid
                 }
             }
@@ -204,7 +203,9 @@ import Blazy from './scripts/blazy.js';
     }
 
     function overlayClose(e, backButton = true) {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
 
         elms.body.classList.remove('no-scroll');
 
@@ -377,6 +378,7 @@ import Blazy from './scripts/blazy.js';
                 openingByHover = 1;
 
                 currentImage = parseInt(e.target.parentNode.getAttribute('data-id'));
+                console.log(currentImage);
 
                 if (e.target.nodeName == "IMG") {
                     elms.afterBar.style.backgroundColor = e.target.getAttribute('data-dominant');
@@ -393,6 +395,7 @@ import Blazy from './scripts/blazy.js';
                 }
             } else {
                 currentImage = parseInt(e.target.parentNode.getAttribute('data-id'));
+                console.log(currentImage);
 
                 elms.artContent.classList.remove('slide-content-left');
 
@@ -491,7 +494,6 @@ import Blazy from './scripts/blazy.js';
                     elms.artContent.classList.remove('slide-content-left');
                 }
 
-                // elms.afterBar.style.backgroundColor = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
             }
 
             if (elms.overlay.classList.contains("info-overlay-open") && this.classList.contains('after-bar-full') && !elms.overlay.classList.contains('js-hash-call') && !this.classList.contains('arrow-click')) { /* Side Scroll added  just !this.classList.contains('arrow-click')*/
@@ -504,8 +506,6 @@ import Blazy from './scripts/blazy.js';
                 elms.afterBar.classList.remove("after-bar-full"); /* Side Scroll added */
                 // elms.overlayMedia.classList.remove('overlay-media-hidden'); /* Side Scroll added */
                 elms.overlayInsideTop.classList.remove('overlay-inside-top-padder'); /* Side Scroll added */
-                // elms.afterBar.style.backgroundColor = document.querySelectorAll("[data-id='"+ currentImage +"']")[0].lastChild.getAttribute("data-dominant");
-                // changeImage(currentImage);
             }
 
         }, false);
@@ -625,12 +625,6 @@ import Blazy from './scripts/blazy.js';
         if (ready) {
             document.querySelector('#cs-wrapper').style.display = "block";
 
-            // if (isMobile() || window.innerWidth < 500) {
-            //     addMobileGrid();
-            // } else {
-            //     addDesktopGrid();
-            // }
-
             blazy();
 
             setTimeout(function() {
@@ -648,8 +642,8 @@ import Blazy from './scripts/blazy.js';
             window.onpopstate = function() {
                 checkHash();
 
-                if (window.location.hash == "") {
-                    overlayClose(e, false);
+                if (window.location.hash === "") {
+                    overlayClose();
 
                     elms.body.classList.remove('no-scroll');
                     elms.aboutOverlay.classList.remove("about-overlay-open");
