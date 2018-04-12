@@ -133,19 +133,19 @@ import Blazy from 'blazy';
             elms.btnOpenAbout.classList.add('overlay-open');
             elms.afterBar.classList.remove('after-bar-full');
             elms.overlayInsideTop.classList.remove('overlay-inside-top-padder');
-        }
-
-        if (validTrigger) {
             elms.overlay.removeAttribute("style");
             elms.overlay.classList.add("info-overlay-open");
             elms.overlay.classList.add("info-overlay-open-index");
             elms.afterBar.classList.remove('after-bar-full');
             elms.overlayInsideTop.classList.remove('overlay-inside-top-padder');
 
+            // Remove old image
+            let id = e.target.parentNode.dataset.id;
+
             if (e.target.classList.contains('artwork-number')) {
-                getId(e.target);
+                getId(id);
             } else if (e.target.classList.contains('artwork-number-span')) {
-                getId(e.target.parentNode);
+                getId(id);
             }
 
         }
@@ -242,10 +242,7 @@ import Blazy from 'blazy';
         }
     }
 
-    function getId(el) {
-        // Remove old image
-        let id = el.parentNode.getAttribute("data-id");
-
+    function getId(id) {
         currentImage = id;
 
         displayArtworkInfo(id);
@@ -294,8 +291,11 @@ import Blazy from 'blazy';
         }
     }
 
+    // 'id' is coming from the click target data-id attribue's value.
     function displayArtworkInfo(id) {
         let vals = jsonFile[id];
+        console.log(id);
+        console.dir(vals);
 
         elms.loader.style.visibility = 'hidden';
 
@@ -366,43 +366,34 @@ import Blazy from 'blazy';
         }
     }
 
-    /**
-     *
-     */
     function bindEvents() {
         let transitionEvent = whichTransitionEvent();
 
         // Grid item clicks
-        elms.grid.addEventListener("click", function(e) {
+        elms.grid.addEventListener('click', function(e) {
             if (isMobile()) {
                 openingByHover = 1;
 
-                currentImage = parseInt(e.target.parentNode.getAttribute('data-id'));
-                console.log(currentImage);
+                currentImage = e.target.parentNode.dataset.id;
 
-                if (e.target.nodeName == "IMG") {
-                    elms.afterBar.style.backgroundColor = e.target.getAttribute('data-dominant');
-                    e.target.parentNode.firstElementChild.classList.add('artwork-number-hover');
-                    e.target.parentNode.firstElementChild.style.backgroundColor = e.target.getAttribute('data-dominant');
-                }
+                e.target.parentNode.firstElementChild.classList.add('artwork-number-hover');
+                e.target.classList.add('artwork-number-hover');
+                e.target.parentNode.classList.add('artwork-number-hover');
 
-                if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number')) {
-                    e.target.classList.add('artwork-number-hover');
-                }
+                updateHash();
 
-                if (e.target.nodeName == "SPAN" && e.target.classList.contains('artwork-number-span')) {
-                    e.target.parentNode.classList.add('artwork-number-hover');
-                }
             } else {
-                currentImage = parseInt(e.target.parentNode.getAttribute('data-id'));
-                console.log(currentImage);
+                // console.log(e.target.parentNode.dataset.id);
+                currentImage = e.target.parentNode.dataset.id;
+                // console.log(currentImage);
+                // console.log(e.target.nodeName);
+                // console.log(typeof e.target.nodeName);
 
                 elms.artContent.classList.remove('slide-content-left');
 
-                if (e.target.nodeName == "IMG" || e.target.nodeName == "SPAN") {
-                    openInfoOverlay(e);
-                }
+                openInfoOverlay(e);
             }
+
 
         }, false);
 
